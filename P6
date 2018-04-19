@@ -211,54 +211,47 @@ public class TestCuenta {
     }
 }
 
-//CREAR CLASE LLAMADO TestCuenta
+//CREAR CLASE LLAMADO Cuenta
 
 import java.util.Scanner;
 
-public class TestCuenta {
+public class Cuenta {
+    Scanner in = new Scanner(System.in);
+   private double saldo=100.50;
+//
+    public double Depositar(){ // Agregar Saldo
+         double saldo_extra;
+         System.out.println("----------------------------");
+         System.out.println("\tCuanto quiere ingresar: ");
 
-    public static void main(String[] args) {
-        Scanner in = new Scanner(System.in);
-        Cuenta c = new Cuenta();
-        boolean ban = true;
-        String Nombre;
-        double saldo;
-        do {
-            int op;
-            System.out.println("\t*** C A J E R O ***");
-            System.out.println("\t1_Depositar Cantidad  ");
-            System.out.println("\t2_Retirar efectivo  ");
-            System.out.println("\t3_Salir");
-            op = in.nextInt();
-            in.nextLine();
-
-            switch (op) {
-                case 1:
-                    System.out.println("----------------------------");
-                    System.out.println("\tSaldo Actual:" + c.getSaldo());
-                    saldo = c.Depositar();
-                    System.out.println("----------------------------");
-                    System.out.println("\tSaldo" + saldo);
-                    System.out.println("----------------------------");
-                    break;
-                case 2:
-                    c.retirar();
-                    System.out.println("----------------------------");
-                    System.out.println("Saldo Final" + c.getSaldo());
-                    System.out.println("----------------------------");
-                    break;
-                case 3:
-                    System.out.println("Gracias Por Usar Nuestro Programa");
-                    ban = false;
-                    break;
-                default:
-                    System.out.println("OPCION INVALIDA");
-
-            }
-        } while (ban != false);
-
+           saldo_extra=in.nextDouble();
+           saldo=saldo_extra+saldo;
+        return saldo;
     }
+    
+    public void retirar(){
+        double fondo;
+        System.out.println("----------------------------");
+        System.out.println("\tCuanto desea retirar?(Saldo: "+saldo+")");
+         fondo = in.nextDouble();
+        saldo=saldo- fondo ;  
+    }
+
+    
+    
+    
+    public double getSaldo() {
+        return saldo;
+    }    
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    String cuenta() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }     
 }
+
 
 
 
