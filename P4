@@ -1,0 +1,192 @@
+//1.- Copiar, analizar y ejecutar el ejemplo de conversiones de temperatura
+
+package temperatura;
+
+public class MTemperatura {
+
+    public static void main(String[] args) 
+    {
+        Temperatura t = new Temperatura();
+        
+        t.grados = Integer.parseInt(args[0]);
+        
+        char opcion = args[1].charAt(0); // c o f segun sean los grados capturados
+        
+        if (opcion == 'f') 
+        {
+            double c = t.aCentigrados();
+            System.out.println(t.grados + " F = " + c + " C");
+        }
+        if (opcion == 'c') 
+          {
+            double f = t.aFarenheit();
+            System.out.println(t.grados + " C = " + f + " F");
+          }
+    }
+}
+
+//CREAR OTRA CLASE LLAMADO Temperatura
+
+package temperatura;
+
+public class Temperatura {
+
+    public int grados;
+
+    public double aCentigrados() 
+    {
+// C =5/9 (F-32)
+        double c = (double) 5 / 9 * (grados - 32);
+        return c;
+    }
+
+    public double aFarenheit() 
+    {
+// F =9/5 C + 32.
+        double f = 9 / 5.0 * grados + 32;
+        return f;
+    }
+}
+
+
+
+//2.- Escribir un programa que desglose cierta cantidad de segundos dada por el usuario en su
+equivalente en días, horas, minutos y segundos.
+
+package segundoshoras;
+
+//import java.util.Scanner;
+
+public class SegundoshorasMain {
+
+//       final static int hor=3600;
+//        final static int min=60;
+//        final static int dia=86400;
+//        final static int seg=60;
+        
+   public static void main(String[] args)
+    { 
+        
+    segundos segundoshoras = new segundos();
+        int segundos = Integer.valueOf(args[0]);
+     
+        
+        System.out.println("Segundos>> "+args[0]);
+       
+        int calDia = segundoshoras.calcularDias(segundos);
+        int calHor = segundoshoras.calcularHoras(segundos);
+        int calMin = segundoshoras.calcularMinutos(segundos);
+        int calSeg = segundoshoras.calcularSegundos(segundos);
+
+
+        
+        
+        System.out.println("Son "+calDia+" Dias ");
+        System.out.println("Son "+calHor+ " Horas ");
+        System.out.println("Son "+calMin+ " Minutos ");
+        System.out.println("Son "+calSeg+ " Segundos ");        
+    
+    
+    
+    }
+}
+    
+   //crea otra clase llamado segundos
+   
+   package segundoshoras;
+
+public class segundos {
+ //   Scanner sc = new Scanner(System.in);
+       public void llamar(){
+       }
+       // System.out.println("Usuario Ingrese los segundos>> "+args[0]);
+        //num = sc.nextInt();
+    
+    
+    public int calcularDias(int segun) {
+        int dia;
+        dia = (segun/ 86400);//86400s tiene un dia
+        return dia;
+    }
+    
+              public int calcularHoras(int segun) {
+                  int hor;
+                hor = segun / 3600; //3600s tiene una hora
+                return hor;
+              }
+              
+         public int calcularMinutos(int segun){
+             int min = 0;
+             int hor = 0;
+            min = (segun - (3600 * hor)) / 60;
+        return min;
+         }
+         
+         
+         public int calcularSegundos(int segun){
+             int seg = 0;
+             int hor = 0;
+             int min = 0;
+        seg = segun - ((hor * 3600) + (min * 60));
+         return seg;
+         }
+         
+    }
+
+
+
+
+
+//3.- Definir una clase Empleados que represente los trabajadores de una empresa. La
+información disponible para cada empleado consiste en el nombre, fecha de ingreso (mes y
+año), el salario diario. Calcular el salario semanal, prima vacacional y aguinaldo de un
+Trabajador.
+salario semanal= salario diario * 7 - impuesto. impuesto = 12%
+prima vacacional = vacaciones * 25%. vacaciones = salario diario * días de vacaciones;
+aguinaldo = 15 días de tu salario mensual antes de impuestos.
+
+package empleados;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Empleados empleados = new Empleados();
+
+        int ne;
+        String n;
+        Scanner enter = new Scanner(System.in);
+        
+        System.out.println("NUMERO DEL TRABAJADOR: ");
+        ne = enter.nextInt();
+        empleados.setNoEmp(ne);
+        System.out.println("\n\nNumero De Empleado:" + empleados.getNoEmp());
+            }
+}
+
+//crea otra clase llamado Empleados 
+package empleados;
+
+public class Empleados {
+
+//    public void metodo2() {
+//    }
+    private int noEmp;
+    private String nom;
+    private double sSem;
+    private double sMens;
+    private double impuesto;
+
+    public void setNoEmp(int noEmp) {
+        this.noEmp = noEmp;
+    }
+
+    public int getNoEmp() {
+        return this.noEmp;
+    }
+
+    public double calcularSueldoMens() {
+        this.sMens = this.sSem * 7;
+        return this.sMens;
+    }
