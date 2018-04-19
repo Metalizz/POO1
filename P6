@@ -1,0 +1,268 @@
+1.- Crear la clase Cuenta, debe satisfacer el siguiente diagrama UML
+
+
+Cuenta
+- saldo : double
++ Cuenta (saldo: double)
++ agregar (cantidad: double)
++ retirar (cantidad: double)
++ getSaldo () : double
+
+El saldo de la cuenta bancaria no debe ir por debajo de cero.
+Cree el archivo TestCuenta, esta clase actúa como un programa para crear un objeto
+cuenta con un saldo inicial dado por el usuario. El programa tendrá un menú para realizar las
+distintas operaciones.
+
+
+package clases;
+
+public class ClasePrincipal {
+    public static void main(String[] args) {
+        
+        ClasePadre_Abstracta mesajero = new ClaseHija_Consulta();
+        mesajero.setSaldo(0);//aqui ponemos 0 porque si ponemos 100 tendria 100 ya depositados
+        mesajero.Operaciones();
+    }
+}
+
+
+//crear clases llamados ClasePadre_Abstracta, ClaseHija_Retiro, ClaseHija_Deposito y ClaseHija_Consulta
+
+package clases;
+
+import java.util.Scanner;
+
+public abstract class ClasePadre_Abstracta {
+
+    protected int transacciones, retiro, deposito;
+    static int saldo;
+    Scanner entrada = new Scanner(System.in);
+
+    public void Operaciones() {
+        int bandera = 0;
+        int seleccion = 0;
+        do {
+            do {
+                System.out.println("Porfavor seleccione una opción:");
+                System.out.println("    1. Consulta de saldo.");
+                System.out.println("    2. Retiro de efectivo.");
+                System.out.println("    3. Deposito de efectivo.");
+                System.out.println("    4. Salir.");
+                seleccion = entrada.nextInt();
+
+                if (seleccion >= 1 && seleccion <= 4) {
+                    bandera = 1;
+                } else {
+                    System.out.println("-------------------------------------------------");
+                    System.out.println("Opción no disponible, vuelva a intentar porfavor.");
+                    System.out.println("-------------------------------------------------");
+                }
+            } while (bandera == 0);
+            
+            if(seleccion == 1){
+                ClasePadre_Abstracta mensajero = new ClaseHija_Consulta();
+                mensajero.Transacciones();
+            }else if(seleccion == 2){
+                ClasePadre_Abstracta mensajero = new ClaseHija_Retiro();
+                mensajero.Transacciones();
+            } else if(seleccion == 3){
+                ClasePadre_Abstracta mensajero = new ClaseHija_Deposito();
+                mensajero.Transacciones();
+            } else if(seleccion == 4){
+                System.out.println("--------------------------");
+                System.out.println("¡Gracias!, vuelva pronto.");
+                System.out.println("--------------------------");
+                bandera = 2;
+            }
+        } while (bandera != 2);
+    }
+    
+    //Método para solicitar cantidad de retiro
+    public void Retiro(){
+        retiro = entrada.nextInt();
+    }
+    
+    //Método para solicitar deposito
+    public void Deposito(){
+        deposito = entrada.nextInt();
+    }
+    
+    //Método abstracto
+    public abstract void Transacciones();
+    
+    //Métodos setter y getter
+    public int getSaldo(){
+        return saldo;
+    }
+    
+    public void setSaldo(int saldo){
+        this.saldo = saldo;
+    }
+}
+
+
+
+
+package clases;
+
+public class ClaseHija_Retiro extends ClasePadre_Abstracta {
+
+    @Override
+    public void Transacciones() {
+        System.out.print("Cuanto deseas retirar: ");
+        Retiro();
+        if (retiro <= getSaldo()) {
+            transacciones = getSaldo();
+            setSaldo(transacciones - retiro);
+            System.out.println("-----------------------------------");
+            System.out.println("Retiraste : " + retiro);
+            System.out.println("Tu saldo actual es: " + getSaldo());
+            System.out.println("-----------------------------------");
+        } else {
+            System.out.println("---------------------");
+            System.out.println("Saldo insuficiente.");
+            System.out.println("---------------------");
+        }
+    }
+}
+
+
+
+package clases;
+
+public class ClaseHija_Deposito extends ClasePadre_Abstracta{
+    
+    @Override
+    public void Transacciones(){
+        System.out.print("Cuanto deseas depositar: ");
+        Deposito();
+        
+        transacciones = getSaldo();
+        setSaldo(transacciones + deposito);
+        System.out.println("-----------------------------------");
+        System.out.println("Depositaste: " + deposito);
+        System.out.println("Tu saldo actual es: " + getSaldo());
+        System.out.println("-----------------------------------");
+    }
+    
+}
+
+
+
+
+package clases;
+
+public class ClaseHija_Consulta extends ClasePadre_Abstracta{
+    
+    @Override
+    public void Transacciones(){
+        System.out.println("------------------------------------");
+        System.out.println("Tu saldo actual es: " + getSaldo());
+        System.out.println("------------------------------------");
+    }    
+}
+
+
+
+2.- Crear la clase Vectores que contenga métodos para realizar la suma, resta, y multiplicación
+de dos vectores. Deberá utilizar una clase Principal que contenga un menú de opciones dentro
+del main que permita seleccionar una operación a realizar con los vectores. Utilizar un
+constructor para definir el tamaño de los vectores.
+
+package practica6_2;
+
+import java.util.Scanner;
+
+public class Principal {
+    static Scanner in = new Scanner(System.in);
+    public static void main(String[] args) {
+       
+        boolean ban = true;
+        System.out.println("Intrese el Numero Que Desea");
+         int vector = in.nextInt();
+         Vectores vec = new Vectores(vector);
+  do{
+           int op;
+          System.out.println("\tOperaciones de Vectores\n");
+          System.out.println("\t1_Registrar Vectores");
+          System.out.println("\t2_Suma de Vectores");
+          System.out.println("\t3_Resta de vectores");
+          System.out.println("\t4_Multipliacion de vectores");
+          System.out.println("\t5-Salir\n");
+          System.out.print("\tOpcion A Elegir ");
+          op=in.nextInt();
+            in.nextLine();
+           
+          switch(op){
+              case 1: //Registro
+                  vec.registro(vector);
+                  break;
+              case 2: //Suma
+                   vec.suma(vector);
+                  break;
+              case 3://Resta
+                  vec.resta(vector);
+                  break;
+              case 4://Multiplicacion
+                  vec.multiplicacion(vector);
+                  break;
+              case 5://Salir
+                  ban = false;
+                  break;
+                  default: 
+                      System.out.println("OPCION INVALIDA\n");
+              
+              
+       }//switch
+     }while(ban != false);
+   } 
+}
+
+
+
+//crear otra clase llamado vectores
+
+package practica6_2;
+import java.util.Scanner;
+
+public class Vectores {
+    Scanner in = new Scanner(System.in);
+    int vector1[],vector2[];
+    Vectores(int vector) {
+      vector1= new int [vector];
+      vector2= new int [vector];
+    }
+    
+    void registro(int vector){
+        for(int x=0;x<vector;x++){
+			System.out.println("ingrese el numero>> "+(x+1));
+			vector1[x]=in.nextInt();
+		}
+		for(int y=0;y<vector;y++){
+			System.out.println("ingrese el numero>> "+(y+1));
+			vector2[y]=in.nextInt();
+		}
+    }
+    void suma(int vector){
+        int z=0;
+		for(int x=0;x<vector;x++){
+			z=(vector1[x]+vector2[x]);
+			System.out.println("La suma del vector>> "+z);
+		}
+    }
+    void resta(int vector){
+         int z=0;
+		for(int x=0;x<vector;x++){
+			z=(vector1[x]-vector2[x]);
+			System.out.println("La resta del vector>> "+z);
+                }
+    }
+    void multiplicacion(int vector){
+        int z=0;
+		for(int x=0;x<vector;x++){
+			z=(vector1[x]*vector2[x]);
+			System.out.println("La multiplicacion del vector>> "+z);
+                }
+    }    
+    
+}
