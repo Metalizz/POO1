@@ -1,0 +1,136 @@
+//1.- Copiar, analizar y ejecutar el siguiente ejemplo
+
+public class Plumones {
+
+    private String color;
+    private String marca;
+    public String tipo;
+    public String escribir;
+    
+    public void escribir(String msg) {
+        System.out.println(msg + " usando el plumon " + marca);
+    }
+
+    public void pintar() {
+        System.out.println("pintando de color " + color + " sobre " + tipo);
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public static void main(String[] args) {
+        Plumones plumon = new Plumones();
+        
+        plumon.setMarca("Bic");
+        plumon.setColor("azul");
+        plumon.tipo = "pizarron";
+        plumon.pintar();
+        plumon.escribir("Estoy");
+    }
+    }
+    
+    //2.- Elabora un programa que muestre la tabla de multiplicar del 7, la salida debe ser:
+    
+    package multiplica;
+
+import java.util.Scanner;
+
+public class Multiplica {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+    Scanner in = new Scanner(System.in);
+        int n;
+        System.out.print("Introduce un número entero: ");
+        n = in.nextInt();
+        System.out.println("Tabla del " + n);
+        for(int i = 1; i<=10; i++){
+             System.out.println(n + " * " + i + " = " + n*i);
+    
+     }
+    
+   }
+}
+
+
+
+//3.- Copia, compila, corrige y ejecuta el siguiente programa
+
+package car;
+
+public class Car {
+    
+private String marca;
+private float capacidadTanque;
+public String llenarTanque;
+public String avanzar;
+
+public void llenarTanque() {
+System.out.println( "se cargaron " + capacidadTanque + " litros de gasolina");
+}
+
+
+public void avanzar() {
+System.out.println("paseando en el carro " + marca);
+}
+
+
+
+public static void main(String[] args) {
+Car carro = new Car();
+carro.capacidadTanque = (float)60.5;
+carro.marca = ("toyota");
+carro.llenarTanque();
+carro.avanzar();
+}
+}
+
+/**
+ * 3.- Elabora un clase llamada Triángulos, con el método dibujar, donde se mostrara la figura en
+pantalla, crea la clase llamada Figuras, donde invoques el método anteriormente creado.
+ */
+
+package labpoo;
+public class Labpoo {
+
+   
+    public void metodo1() {
+
+        // TODO code application logic here
+        System.out.println("                   *                  ");
+        System.out.println("                  ***                 ");
+        System.out.println("                 *****                ");
+        System.out.println("                *******               ");
+        System.out.println("               *********              ");
+        System.out.println("              ***********             ");
+        System.out.println("            **************            ");
+        System.out.println("          ******************          ");
+        System.out.println("        **********************        ");
+        System.out.println("      **************************      ");
+        System.out.println("    ******************************    ");
+        System.out.println("  **********************************  ");
+
+
+    }
+
+}   
+
+
+//crea otra clase llamado figuras
+package labpoo;
+public class figuras {
+    public static void main(String[] args){      
+            
+ Labpoo figura = new Labpoo();
+    figura.metodo1();
+ 
+    }
+}
