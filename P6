@@ -162,7 +162,107 @@ public class ClaseHija_Consulta extends ClasePadre_Abstracta{
     }    
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////////
 
+import java.util.Scanner;
+
+public class TestCuenta {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Cuenta c = new Cuenta();
+        boolean ban = true;
+        String Nombre;
+        double saldo;
+        do {
+            int op;
+            System.out.println("\t*** C A J E R O ***");
+            System.out.println("\t1_Depositar Cantidad  ");
+            System.out.println("\t2_Retirar efectivo  ");
+            System.out.println("\t3_Salir");
+            op = in.nextInt();
+            in.nextLine();
+
+            switch (op) {
+                case 1:
+                    System.out.println("----------------------------");
+                    System.out.println("\tSaldo Actual:" + c.getSaldo());
+                    saldo = c.Depositar();
+                    System.out.println("----------------------------");
+                    System.out.println("\tSaldo" + saldo);
+                    System.out.println("----------------------------");
+                    break;
+                case 2:
+                    c.retirar();
+                    System.out.println("----------------------------");
+                    System.out.println("Saldo Final" + c.getSaldo());
+                    System.out.println("----------------------------");
+                    break;
+                case 3:
+                    System.out.println("Gracias Por Usar Nuestro Programa");
+                    ban = false;
+                    break;
+                default:
+                    System.out.println("OPCION INVALIDA");
+
+            }
+        } while (ban != false);
+
+    }
+}
+
+//CREAR CLASE LLAMADO TestCuenta
+
+import java.util.Scanner;
+
+public class TestCuenta {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Cuenta c = new Cuenta();
+        boolean ban = true;
+        String Nombre;
+        double saldo;
+        do {
+            int op;
+            System.out.println("\t*** C A J E R O ***");
+            System.out.println("\t1_Depositar Cantidad  ");
+            System.out.println("\t2_Retirar efectivo  ");
+            System.out.println("\t3_Salir");
+            op = in.nextInt();
+            in.nextLine();
+
+            switch (op) {
+                case 1:
+                    System.out.println("----------------------------");
+                    System.out.println("\tSaldo Actual:" + c.getSaldo());
+                    saldo = c.Depositar();
+                    System.out.println("----------------------------");
+                    System.out.println("\tSaldo" + saldo);
+                    System.out.println("----------------------------");
+                    break;
+                case 2:
+                    c.retirar();
+                    System.out.println("----------------------------");
+                    System.out.println("Saldo Final" + c.getSaldo());
+                    System.out.println("----------------------------");
+                    break;
+                case 3:
+                    System.out.println("Gracias Por Usar Nuestro Programa");
+                    ban = false;
+                    break;
+                default:
+                    System.out.println("OPCION INVALIDA");
+
+            }
+        } while (ban != false);
+
+    }
+}
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
 
 2.- Crear la clase Vectores que contenga métodos para realizar la suma, resta, y multiplicación
 de dos vectores. Deberá utilizar una clase Principal que contenga un menú de opciones dentro
