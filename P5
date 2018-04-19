@@ -1,0 +1,188 @@
+//1.- Elabora una clase llamada Rectángulos, y otra llamada Pentágono, cada una con el
+método dibujar, donde se mostrara la figura correspondiente en pantalla. Crea una clase
+llamada Dibujos y en el main muestra un menú para que el usuario elija cual figura quiere ver.
+
+package main;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner reader = new Scanner(System.in);
+        int opc = -1;
+        Pentagono p = new Pentagono();
+        Rectangulo r = new Rectangulo();
+        
+        System.out.println("\t\t**** M E N U ****");
+        System.out.println("1)Ver El Pentágono\n2)Ver El Rectangulo\n3)Salir");
+        System.out.println("INGRESA OPCION >> ");
+        opc = reader.nextInt();
+
+        switch (opc) {
+            case 1:
+                p.llamada1();
+                break;
+
+            case 2:
+                r.llamada2();
+                break;
+                
+            case 3:
+                System.out.println("Saliendo Del Programa. GRACIAS :3");
+
+        }
+
+    }
+
+}
+
+//crear otra clase llamado Rectangulo y Pentagono
+package main;
+
+class Rectangulo {//clase
+    public Rectangulo (){//constructor
+    }
+    public void llamada2() {
+
+        System.out.println("****************************************** ");
+        System.out.println("*                                        * ");
+        System.out.println("*                                        * ");
+        System.out.println("*                                        * ");
+        System.out.println("*                                        * ");
+        System.out.println("*                                        * ");
+        System.out.println("****************************************** ");
+    }
+}
+
+
+
+package main;
+
+class Pentagono {
+    public Pentagono(){
+    }
+    
+    public void llamada1() {
+
+        System.out.println("                    *                   ");
+        System.out.println("                *       *               ");
+        System.out.println("             *            *             ");
+        System.out.println("          *                 *           ");
+        System.out.println("        *                     *         ");
+        System.out.println("       *                        *       ");
+        System.out.println("        *                      *        ");
+        System.out.println("         *                    *         ");
+        System.out.println("          *                  *          ");
+        System.out.println("           *                *           ");
+        System.out.println("            *              *            ");
+        System.out.println("             *************              ");
+
+    }
+}
+
+
+
+
+
+2.- Defina la clase Ecuaciones donde se obtenga la raíz cuadrada de un numero, el usuario
+puede ingresar 'n' valores de entrada para obtener su raíz cuadrada; utilizar argumentos
+variables. Definir la clase Principal que reciba los argumentos desde línea de comandos.
+ */
+package ecuaciones;
+
+public class Ecuaciones {
+
+    public static void main(String[] args) {
+        raiz ra = new raiz();
+        
+        double raiz = 0;
+        int x;
+        
+        
+        for (x = 0; x < args.length; x++) {
+            System.out.println("Igresaste El Numero A Obtener La Raiz Cuadrada >> " + args[x]+""
+                    + " Y Su Raiz Cuadrada Es: "+ra.calcularRaiz(Double.valueOf(args[x])));
+            
+        }
+        }
+        }
+        
+        //crear otra clase llamado raiz
+        
+        package ecuaciones;
+
+class raiz {
+    public raiz() {
+    }
+    
+   
+    public double calcularRaiz(double raiz) {
+        double rai = 0;
+        rai = Math.sqrt(raiz);
+        return rai;
+        }
+    }
+
+
+/*
+3.- Crear una aplicación utilizando la siguiente clase, el método validar, verifica si la fecha
+dada por el usuario es correcta y se almacena en el atributo fecha, de lo contrario avisar al
+usuario el error y asignar la fecha actual(obtener del sistema); el método mostrar, indica el
+evento y la fecha registrado. Pedir datos desde teclado.
+ */
+
+package p5fechas;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+public class P5Fechas {
+
+    public static void main(String[] args) {
+         Fecha f = new Fecha();
+         f.llamada();
+    }
+    
+}
+
+//crear otra clase llamado Fecha
+
+package p5fechas;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+class Fecha {
+    public Fecha(){
+    }
+    
+    public void llamada(){
+        
+       String fecha;
+       int op=0;
+        Scanner leer=new Scanner(System.in);
+        
+        do{
+        System.out.println(" ");
+        SimpleDateFormat pattern = new SimpleDateFormat("dd/MM/yyyy");
+        String date = pattern.format(new Date());
+        System.out.println(date);
+       
+        System.out.println("Ingrese la fecha dd/MM/yyyy");
+        fecha=leer.next();
+        if(date.compareTo(fecha)==0){
+            System.out.println("La fecha Es Correcta");
+        }else
+                 System.out.println("La fecha Es Incorrecta");
+                 
+        System.out.println("\nOtra vez? Si=1/No=2");
+        op=leer.nextInt();
+        }while(op==1);
+    }
+}
+
+
+
