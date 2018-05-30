@@ -1,0 +1,13 @@
+/* Entrada y salida de datos a archivos
+1. Utiliza el diagrama UML para elaborar una aplicación formada con las clases que se
+indica. La clase principal debe mostrar el siguiente menú:
+a. Crear nuevo archivo
+b. Abrir archivo
+c. Agregar registros
+d. Modificar registro
+e. Eliminar registro
+f. Visualizar registros
+Los datos a guardar son: matricula, nombre, calificacion1, calificacion2, promedio (se
+debe calcular), en modificaciones solo se pueden cambiar las calificaciones.
+Utilizar el tipo de archivo que especifique el maestro (texto, binarios u objetos).
+Deberá aplicar las excepciones que correspondan. */
