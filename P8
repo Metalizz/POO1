@@ -1,0 +1,18 @@
+/*Manejo de paquetes
+
+1. Crear un programa principal con un menú donde el usuario pueda elegir dibujar un
+triangulo, rectángulo o pentágono,
+1.1.Esta clase debe pertenecer a un paquete llamado practica9
+1.2.Modifica la clase Triángulos, Rectángulos, y Pentágono desarrolladas en la practica 3
+y 5 para que pertenezcan al paquete correspondiente.
+1.3.Realiza los cambios necesarios para que los programas principales de la practica 3 y 5
+continúen funcionando correctamente.
+2. Crear un programa principal llamado Banco en el paquete practica9 donde el usuario
+pueda registrar hasta 5 cuentas diferentes,
+2.1.Realiza los siguientes actividades en la clase Cuenta de la practica6:
+2.1.1. Agrega en un atributo de tipo entero llamado noCuenta,
+2.1.2. El método constructor inicializara los dos atributos de la clases
+2.1.3. Crea el método getNoCuenta();
+2.1.4. Esta clase debe pertenecer al paquete practica6
+2.2.Completa la clase Banco que se muestra a continuación para que el usuario pueda
+realizar las diferentes opciones que muestra el menú. */
