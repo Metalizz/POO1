@@ -1,0 +1,249 @@
+/*Programación con múltiples clases optimizando el código
+
+1.- Se requiere un programa para registrar y consultar los datos de un directorio telefonico,
+realiza las siguientes actividades para su desarrollo
+a) Crea una clase llamada Directorio utilizando como base el siguiente diagrama UML:
+
+Directorio
+
+- nombre
+- direccion
+- telefono
+- correoElectronico
++ Directorio(nombre String, direccion String,
+telefono String, correoElectronico String)
++ getNombre(): String
++ getDireccion(): String
++ getTelefono(): String
+
+b) Codifica los siguientes métodos en una clase llamada Acciones:
+1. constructor - para inicializar el tamaño del vector,
+2. altas - el nombre debe quedar almacenado en mayúsculas,
+3. búsqueda -por nombre,
+4. consulta general -ordenada alfabéticamente,
+5. consulta por apellido paterno -mostrar nombre y los últimos 3 dígitos de su
+teléfono
+6. consulta por correo -buscar por dominio, mostrar nombre y cuenta (sin @xxx)
+Los atributos de la clase son un vector tipo Directorio y un contador.
+c) Crea un programa principal con un menú para probar la funcionalidad de los métodos
+del paso anterior (del 2 al 6).*/
+
+package directorio;
+public class Acciones {
+
+    Directorio[] D;
+    public int x = 0;
+
+    public Acciones(int x) {
+        D = new Directorio[x];
+    }
+
+    public void Altas(String nombre, String direccion, String telefono, String correo) {
+        D[x] = new Directorio(nombre, direccion, telefono, correo);
+
+        x++;
+    }
+
+    public String buscar(String bus) {
+        String dat = "";
+        boolean find = false;
+        int pos = -1;
+        for (int y = 0; y < x; y++) {
+            if (bus.equalsIgnoreCase(D[y].getNombre())) {
+                find = true;
+                pos = y;
+            }
+        }
+
+        if (find) {
+            dat = D[pos].getDireccion() + "\n" + D[pos].getTelefono() + "\n" + D[pos].getCorreoElectronico();
+        }
+        return dat;
+    }
+
+    public void mostrar() {
+        for (int z = 0; z < x - 1; z++) {
+            for (int y = z + 1; y < x; y++) {
+                if ((D[z].getNombre()).compareTo(D[y].getNombre()) > 0) {
+                    Directorio aux = new Directorio();
+                    aux = D[z];
+                    D[z] = D[y];
+                    D[y] = aux;
+
+                }
+            }
+        }
+        System.out.println("nombre\t\t direccion\t\t telefono\t\t correo electronico");
+        for (int d = 0; d < x; d++) {
+            System.out.println(D[d].getNombre() + "\t\t" + D[d].getDireccion() + "\t\t" + D[d].getTelefono() + "\t\t" + D[d].getCorreoElectronico());
+        }
+    }
+
+    public String buscarap(String buscar) {
+        String dato = "";
+
+        boolean find = false;
+        int pos = -1;
+        for (int y = 0; y < x; y++) {
+
+            String re = "";
+            re = re + ((D[y].getNombre()).substring(0, (D[y].getNombre()).indexOf(' ')));
+
+            if (buscar.equalsIgnoreCase(re)) {
+                find = true;
+                pos = y;
+            }
+        }
+
+        if (find) {
+            int v = (D[pos].getNombre()).indexOf(' ');
+            String tel;
+            String nom = (D[pos].getNombre()).substring((D[pos].getNombre()).indexOf(' ', v + 1));
+            if ((D[pos].getTelefono()).length()> 3) {
+                tel = (D[pos].getTelefono().substring((D[pos].getTelefono()).length() - 3));
+            } else {
+                tel = D[pos].getTelefono();
+            }
+
+            dato = nom + "\t" + tel;
+        }
+        return dato;
+    }
+
+    public String buscarc(String buscarc) {
+        String datos = "";
+        boolean f = false;
+        int pos = -1;
+        for (int y = 0; y < x; y++) {
+            if ((D[y].getCorreoElectronico()).endsWith(buscarc)) {
+                pos = y;
+                f = true;
+            }
+            if (f) {
+                String us = "";
+                us = us + (D[pos].getCorreoElectronico()).substring(0, (D[pos].getCorreoElectronico()).indexOf('@'));
+                datos = "nombre:" + D[pos].getNombre() + "\t\t usuario:" + us;
+            }
+        }
+
+        return datos;
+    }
+
+}
+**********************************************************************************************
+
+
+package directorio;
+
+
+public class Directorio {
+    private String nombre;
+    private String direccion;
+    private String telefono;
+    private String correoElectronico;
+    private String ap;
+    private String am;
+
+    Directorio(){
+        
+    }
+    Directorio(String nombre,String direccion,String telefono,String correoElectronico){
+        this.nombre=nombre;
+        this.direccion=direccion;
+        this.correoElectronico=correoElectronico;
+        this.telefono=telefono;
+    }
+    public String getCorreoElectronico(){
+        return correoElectronico;
+    }
+    public String getNombre(){
+        return nombre;
+    }
+    public String getDireccion(){
+        return direccion;
+    }
+    public String getTelefono(){
+        return telefono;
+    }
+    public String getAm(){
+        return am;
+    }
+    public String getAp(){
+        return ap;
+    }
+    
+}
+**********************************************************************
+package directorio;
+
+import java.util.Scanner;
+
+public class MDirectorio {
+
+    public static void main(String[] args) {
+        Acciones A;
+        Scanner leer = new Scanner(System.in);
+        int opc;
+        System.out.println("tamaño del vector:");
+        int z = leer.nextInt();
+        A = new Acciones(z);
+        do {
+            System.out.println("1. Altas");
+            System.out.println("2. Busqueda");
+            System.out.println("3. Consulta General");
+            System.out.println("4. Consulta por apellido paterno");
+            System.out.println("5. Consulta por correo");
+            System.out.println("6. Salir");
+            System.out.println("");
+            System.out.println("elije una opcion");
+            opc = leer.nextInt();
+            switch (opc) {
+                case 1:
+                    leer.skip("\n");
+                    if (A.x < z) {
+                        System.out.println("nombre(ej: Diego Francisco Rios Duran)");
+                        String nombre = (leer.nextLine()).toUpperCase();
+
+                        System.out.println("Direccion:");
+                        String direccion = leer.nextLine();
+                        System.out.println("Telefono:");
+                        String telefono = leer.nextLine();
+                        System.out.println("Correo electronico");
+                        String correo = leer.nextLine();
+                        A.Altas(nombre, direccion, telefono, correo);
+                    } else {
+                        System.out.println("El vector esta lleno");
+                    }
+                    break;
+                case 2:
+                    System.out.println("nombre que desea buscar");
+                    leer.skip("\n");
+                    String bus = leer.nextLine();
+                    String dat = A.buscar(bus);
+                    System.out.println(dat);
+                    break;
+                case 3:
+                    A.mostrar();
+                    break;
+
+                case 4:
+
+                    leer.skip("\n");
+                    System.out.println("Apellido paterno que desea buscar");
+
+                    String buscar = leer.nextLine();
+                    String dato = A.buscarap(buscar);
+                    System.out.println("nombre\ttel");
+                    System.out.println(dato);
+                    
+                    break;
+                case 5:
+                    leer.skip("\n");
+                    System.out.println("dominio a buscar");
+                    String buscarc = leer.nextLine();
+                    String datos = A.buscarc(buscarc);
+                    System.out.println(datos);
+            }
+        } while (opc != 6);
+    }
+}
