@@ -11,3 +11,853 @@ Los datos a guardar son: matricula, nombre, calificacion1, calificacion2, promed
 debe calcular), en modificaciones solo se pueden cambiar las calificaciones.
 Utilizar el tipo de archivo que especifique el maestro (texto, binarios u objetos).
 Deberá aplicar las excepciones que correspondan. */
+
+/*PACKAGE archivos*/
+/*CLASE Alumno*/
+package archivos;
+
+import java.io.Serializable;
+public class Alumno implements Serializable {   
+
+    private String matricula;
+    private String nombre;
+    private float calificacion1;
+    private float calificacion2;
+    private float promedio;
+    
+    Alumno(){
+        
+    }
+    
+    Alumno(String matricula_in, String nombre_in, float calificacion1_in, float calificacion2_in){
+        matricula = matricula_in;
+        nombre = nombre_in;
+        calificacion1 = calificacion1_in;
+        calificacion2 = calificacion2_in;
+        calcularPromedio();
+        
+    }
+    
+    public Alumno(String matricula_in, String nombre_in, float calificacion1_in, float calificacion2_in, float promedio_in){
+        matricula = matricula_in;
+        nombre = nombre_in;
+        calificacion1 = calificacion1_in;
+        calificacion2 = calificacion2_in;
+        promedio = promedio_in;
+        
+    }
+
+    public void calcularPromedio() {                
+        setPromedio((calificacion1+calificacion2)/2);                
+    }
+
+    public String getMatricula() {
+        return matricula;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+    
+    public float getCalificacion1() {
+        return calificacion1;
+    }
+
+    public void setCalificacion1(float calificacion1) {
+        this.calificacion1 = calificacion1;
+    }
+ 
+    public float getCalificacion2() {
+        return calificacion2;
+    }
+
+    public void setCalificacion2(float calificacion2) {
+        this.calificacion2 = calificacion2;
+    }
+
+    /**
+     * @return the promedio
+     */
+    public float getPromedio() {
+        return promedio;
+    }
+
+    public void setPromedio(float promedio) {
+        this.promedio = promedio;
+    }
+}
+
+/*CLASE Principal*/
+package archivos;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import util.*;
+
+/**
+ *
+ * @author luis.martinez
+ */
+public class Principal {
+
+    //static ArchivoTexto archivo = new ArchivoTexto();
+    //static ArchivoBinario archivo = new ArchivoBinario();
+    static ArchivoObjetos archivo = new ArchivoObjetos();
+
+    static Scanner entrada = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        int opc = -1;
+
+        do {
+            System.out.println("\tMenu Principal");
+            System.out.println("1] Crear Nuevo Archivo");
+            System.out.println("2] Abrir Archivo");
+            System.out.println("3] Agregar Registros");
+            System.out.println("4] Modificar Registros");
+            System.out.println("5] Eliminar Registro");
+            System.out.println("6] Visualizar Registros");
+            System.out.println("0] Salir");
+            opc = entrada.nextInt();
+
+            switch (opc) {
+                case 1:
+                    archivo.nuevoArchivo();
+                    break;
+                case 2:
+                    archivo.abrirArchivo();
+                    break;
+                case 3:
+                    agregarRegistros();
+                    break;
+                case 4:
+                    modificarRegistro();
+                    break;
+                case 5:
+                    eliminarRegistro();
+                    break;
+                case 6:
+                    visualizarRegistros();
+                    break;
+
+            }
+
+        } while (opc != 0);
+    }
+
+    static void agregarRegistros() {
+        entrada.nextLine();
+
+        String matricula;
+        String nombre;
+        float calificacion1;
+        float calificacion2;
+
+        System.out.println("Ingrese Matricula:");
+        matricula = entrada.nextLine();
+        System.out.println("Ingrese Nombre:");
+        nombre = entrada.nextLine();
+        System.out.println("Ingrese Primera Calificacion:");
+        calificacion1 = entrada.nextFloat();
+        System.out.println("Ingrese Segunda Calificacion:");
+        calificacion2 = entrada.nextFloat();
+
+        Alumno alumno = new Alumno(matricula, nombre, calificacion1, calificacion2);
+        
+        //archivo.agregarRegistros(alumno);// USo archivos de texto y Binarios
+        
+        
+        //Para uso de Archivo de Objetos
+        ArrayList<Alumno> informacion;
+        informacion = archivo.leerRegistros();
+        informacion.add(alumno);
+        archivo.actualizarRegistros(informacion);
+        //Fin uso de Archivos de Objetos
+
+    }
+
+    static void visualizarRegistros() {
+        ArrayList<Alumno> informacion;
+        informacion = archivo.leerRegistros();
+
+        for (Alumno alumno : informacion) {
+            System.out.println("Matricula: " + alumno.getMatricula());
+            System.out.println("Nombre: " + alumno.getNombre());
+            System.out.println("Calificacion 1: " + alumno.getCalificacion1());
+            System.out.println("Calificacion 2: " + alumno.getCalificacion2());
+            System.out.println("Promedio: " + alumno.getPromedio() + "\n");
+        }
+    }
+
+    static void modificarRegistro() {
+        ArrayList<Alumno> informacion;
+        informacion = archivo.leerRegistros();
+
+        System.out.println("--Modificar Registros--");
+
+        for (int i = 0; i < informacion.size(); i++) {
+            System.out.println("Registro " + i);
+            System.out.println("Matricula: " + informacion.get(i).getMatricula());
+            System.out.println("Nombre: " + informacion.get(i).getNombre());
+            System.out.println("Calificacion 1: " + informacion.get(i).getCalificacion1());
+            System.out.println("Calificacion 2: " + informacion.get(i).getCalificacion2());
+            System.out.println("Promedio: " + informacion.get(i).getPromedio() + "\n");
+        }
+
+        System.out.println("Selecciona Numero de Registro: ");
+        int opc = entrada.nextInt();
+
+        System.out.println("Registro de " + informacion.get(opc).getNombre() + "  seleccionado");
+        System.out.println("Ingrese Primer Calificacion");
+        float cal_1 = entrada.nextFloat();
+        System.out.println("Ingrese Segunda Calificacion");
+        float cal_2 = entrada.nextFloat();
+
+        //Actualizando ArrayList
+        informacion.get(opc).setCalificacion1(cal_1);
+        informacion.get(opc).setCalificacion2(cal_2);
+        informacion.get(opc).calcularPromedio();
+
+        if (archivo.modificarRegistro(informacion)) {
+            System.out.println("Calificacion Actualizada!!!");
+        }
+
+    }
+
+    static void eliminarRegistro() {
+        ArrayList<Alumno> informacion;
+        informacion = archivo.leerRegistros();
+
+        System.out.println("--Eliminar Registro--");
+
+        for (int i = 0; i < informacion.size(); i++) {
+            System.out.println("Registro " + i);
+            System.out.println("Matricula: " + informacion.get(i).getMatricula());
+            System.out.println("Nombre: " + informacion.get(i).getNombre());
+            System.out.println("Calificacion 1: " + informacion.get(i).getCalificacion1());
+            System.out.println("Calificacion 2: " + informacion.get(i).getCalificacion2());
+            System.out.println("Promedio: " + informacion.get(i).getPromedio() + "\n");
+        }
+
+        System.out.println("Selecciona Numero de Registro: ");
+        int opc = entrada.nextInt();
+
+        //Actualizando ArrayList
+        informacion.remove(opc);
+
+        if (archivo.eliminarRegistro(informacion)) {
+            System.out.println("Registro Eliminado!!!");
+        }
+
+    }
+
+}
+
+/*PACKAGE util*/
+/*CLASE ArchivoBinario.java*/
+package util;
+
+import archivos.Alumno;
+import java.io.*;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author luis.martinez
+ */
+public class ArchivoBinario {
+
+    static final String ARCHIVO_BINARIO = "archivo.dat";
+
+    FileOutputStream file_OutputStream = null;
+    FileInputStream file_InputStream = null;
+    
+    File archivo = null;
+
+    public boolean nuevoArchivo() {
+        boolean resultado = false;
+
+        DataOutputStream salida = null;
+
+        try {
+            
+            archivo = new File(ARCHIVO_BINARIO);
+            archivo.createNewFile();
+            resultado = true;
+            
+            System.out.println("Archivo nuevo creado: " + archivo.getPath());
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (file_OutputStream != null) {
+                    file_OutputStream.close();
+                }
+
+                if (salida != null) {
+                    salida.close();
+                }
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return resultado;
+    }
+
+    public boolean abrirArchivo() {
+        boolean resultado = false;
+
+        try {
+
+            file_OutputStream = new FileOutputStream(ARCHIVO_BINARIO, true);
+
+            file_InputStream = new FileInputStream(ARCHIVO_BINARIO);
+            
+            resultado = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
+    }
+
+    public ArrayList leerRegistros() {
+       
+       
+
+        ArrayList<Alumno> informacion = new ArrayList();
+
+        DataInputStream entrada = null;
+        
+
+        try {
+
+            entrada = new DataInputStream(file_InputStream);
+            while (entrada.available() > 0) {
+
+                String matricula = entrada.readUTF();
+                String nombre = entrada.readUTF();
+                float cal_1 = entrada.readFloat();
+                float cal_2 = entrada.readFloat();
+                float promedio = entrada.readFloat();
+
+                Alumno alumno = new Alumno(matricula, nombre, cal_1, cal_2, promedio);
+                informacion.add(alumno);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (EOFException e) {
+            System.out.println("Fin de fichero");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+
+                if (file_InputStream != null) {
+                    file_InputStream.close();
+                }
+
+                if (entrada != null) {
+                    entrada.close();
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return informacion;
+    }
+
+    public boolean agregarRegistros(Alumno alumno) {
+        boolean resultado = false;
+
+        DataOutputStream salida = null;
+
+        try {
+            salida = new DataOutputStream(file_OutputStream);
+
+            salida.writeUTF(alumno.getMatricula());
+            salida.writeUTF(alumno.getNombre());
+            salida.writeFloat(alumno.getCalificacion1());
+            salida.writeFloat(alumno.getCalificacion2());
+            salida.writeFloat(alumno.getPromedio());
+            salida.flush();
+            resultado = true;
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (file_OutputStream != null) {
+                    file_OutputStream.close();
+                }
+
+                if (salida != null) {
+                    salida.close();
+                }
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return resultado;
+    }
+
+    public boolean modificarRegistro(ArrayList<Alumno> alumnos) {
+        boolean resultado = false;
+
+        /* String informacion = "";
+        for (Alumno alumno : alumnos) {
+            informacion += alumno.getMatricula() + "+" + alumno.getNombre() + "+" + alumno.getCalificacion1() + "+" + alumno.getCalificacion2() + "+" + alumno.getPromedio() + "|";
+        }
+
+        try {
+
+            archivo = new File(ARCHIVO_BINARIO);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(informacion);
+            bw.close();
+
+            resultado = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        return resultado;
+    }
+
+    public boolean eliminarRegistro(ArrayList<Alumno> alumnos) {
+        boolean resultado = false;
+
+        /*String informacion = "";
+        for (Alumno alumno : alumnos) {
+            informacion += alumno.getMatricula() + "+" + alumno.getNombre() + "+" + alumno.getCalificacion1() + "+" + alumno.getCalificacion2() + "+" + alumno.getPromedio() + "|";
+        }
+
+        try {
+
+            archivo = new File(ARCHIVO_BINARIO);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(informacion);
+            bw.close();
+
+            resultado = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+        return resultado;
+    }
+
+//    ArrayList parseString(String linea) {
+//        // No se necesita
+//    }
+
+}
+
+/*CLASE ArchivoObjetos.java*/
+package util;
+
+import archivos.Alumno;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author luis.martinez
+ */
+public class ArchivoObjetos {
+
+    static final String ARCHIVO_OBJETOS = "archivo_obj.ser";
+
+    FileOutputStream file_OutputStream = null;
+    FileInputStream file_InputStream = null;
+
+    File archivo = null;
+
+    public boolean nuevoArchivo() {
+        boolean resultado = false;
+
+        ObjectOutputStream salida = null;
+
+        try {
+
+            archivo = new File(ARCHIVO_OBJETOS);
+            archivo.createNewFile();
+
+            resultado = true;
+            System.out.println("Archivo nuevo creado: " + archivo.getPath());
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (file_OutputStream != null) {
+                    file_OutputStream.close();
+                }
+
+                if (salida != null) {
+                    salida.close();
+                }
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return resultado;
+    }
+
+    public boolean abrirArchivo() {
+        boolean resultado = false;
+
+        try {
+
+            
+            //file_OutputStream = new FileOutputStream(ARCHIVO_OBJETOS);// no se puede abrir el archivo aqui por que borrara la informacion
+            
+            file_InputStream = new FileInputStream(ARCHIVO_OBJETOS);
+
+            resultado = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
+    }
+
+    public ArrayList leerRegistros() {
+
+        ArrayList<Alumno> informacion = new ArrayList();
+
+        ObjectInputStream entrada = null;
+
+        try {
+
+            entrada = new ObjectInputStream(file_InputStream);
+
+            informacion = (ArrayList<Alumno>) entrada.readObject();
+
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (EOFException e) {
+            System.out.println("Fin de fichero");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+
+                if (file_InputStream != null) {
+                    file_InputStream.close();
+                }
+
+                if (entrada != null) {
+                    entrada.close();
+                }
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return informacion;
+    }
+
+    public boolean actualizarRegistros(ArrayList<Alumno> alumnos) {
+        boolean resultado = false;
+
+        ObjectOutputStream salida = null;
+
+        try {
+            file_OutputStream = new FileOutputStream(ARCHIVO_OBJETOS);// se cambio aqui ya que borra el archivo con esta llamada
+            salida = new ObjectOutputStream(file_OutputStream);
+            salida.writeObject(alumnos);
+
+            resultado = true;
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+
+                if (file_OutputStream != null) {
+                    file_OutputStream.close();
+                }
+
+                if (salida != null) {
+                    salida.close();
+
+                }
+
+            } catch (IOException ex) {
+
+                ex.printStackTrace();
+
+            }
+
+        }
+
+        return resultado;
+    }
+
+    public boolean modificarRegistro(ArrayList<Alumno> alumnos) {
+          return actualizarRegistros(alumnos);
+    }
+    
+     public boolean eliminarRegistro(ArrayList<Alumno> alumnos) {
+          return actualizarRegistros(alumnos);
+    }
+}
+
+/*CLASE ArchivoTexto*/
+package util;
+
+import archivos.Alumno;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * 
+ * @author luis.martinez
+ */
+public class ArchivoTexto {
+
+    static final String ARCHIVO_TEXTO = "archivo.txt";
+
+    File archivo = null;
+
+    public boolean nuevoArchivo() {
+        boolean resultado = false;
+
+        try {
+
+            archivo = new File(ARCHIVO_TEXTO);
+            archivo.createNewFile();
+            
+            resultado = true;            
+            System.out.println("Archivo nuevo creado: " + archivo.getPath());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+
+        return resultado;
+    }
+
+    public boolean abrirArchivo() {
+        boolean resultado = false;
+
+        try {
+            if (archivo == null) {
+                archivo = new File(ARCHIVO_TEXTO);
+            }
+            resultado = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
+    }
+
+    public ArrayList leerRegistros() {
+        String linea = null;
+        FileReader fr = null;
+        BufferedReader br = null;
+
+        ArrayList<Alumno> informacion = new ArrayList();
+
+        try {
+            fr = new FileReader(archivo);
+            br = new BufferedReader(fr);
+
+            linea = br.readLine();
+
+            informacion = parseString(linea);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                fr.close();
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+
+        return informacion;
+    }
+
+    public boolean agregarRegistros(Alumno alumno) {
+        boolean resultado = false;
+
+        String informacion = "" + alumno.getMatricula() + "+" + alumno.getNombre() + "+" + alumno.getCalificacion1() + "+" + alumno.getCalificacion2() + "+" + alumno.getPromedio() + "|";
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new FileWriter(archivo, true));
+            bw.write(informacion);
+            bw.close();
+
+            resultado = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                bw.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return resultado;
+    }
+
+    public boolean modificarRegistro(ArrayList<Alumno> alumnos) {//(String informacion) {
+        boolean resultado = false;
+
+        String informacion = "";
+        for (Alumno alumno : alumnos) {
+            informacion += alumno.getMatricula() + "+" + alumno.getNombre() + "+" + alumno.getCalificacion1() + "+" + alumno.getCalificacion2() + "+" + alumno.getPromedio() + "|";
+        }
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(informacion);
+            bw.close();
+
+            resultado = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
+    }
+
+    public boolean eliminarRegistro(ArrayList<Alumno> alumnos) {//(String informacion) {
+        boolean resultado = false;
+
+        String informacion = "";
+        for (Alumno alumno : alumnos) {
+            informacion += alumno.getMatricula() + "+" + alumno.getNombre() + "+" + alumno.getCalificacion1() + "+" + alumno.getCalificacion2() + "+" + alumno.getPromedio() + "|";
+        }
+
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(informacion);
+            bw.close();
+
+            resultado = true;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultado;
+    }
+
+    ArrayList parseString(String linea) {
+        ArrayList<Alumno> vector = new ArrayList();
+        char c;
+        int estado = 0;
+        String matricula = "";
+        String nombre = "";
+        String cal1 = "";
+        String cal2 = "";
+        String promedio = "";
+        for (int i = 0; i < linea.length(); i++) {
+
+            c = linea.charAt(i);
+
+            if (c == '|') {
+                Alumno alumno = new Alumno(matricula, nombre, Float.parseFloat(cal1), Float.parseFloat(cal2), Float.parseFloat(promedio));
+
+                vector.add(alumno);
+
+                estado = 0;
+                matricula = "";
+                nombre = "";
+                cal1 = "";
+                cal2 = "";
+                promedio = "";
+
+            } else if (c != '+') {
+                switch (estado) {
+                    case 0:
+                        matricula += c;
+                        break;
+                    case 1:
+                        nombre += c;
+                        break;
+                    case 2:
+                        cal1 += c;
+                        break;
+                    case 3:
+                        cal2 += c;
+                        break;
+                    case 4:
+                        promedio += c;
+                        break;
+                }
+            } else {
+                estado++;
+            }
+
+        }
+        return vector;
+    }
+
+}
