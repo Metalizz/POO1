@@ -1,0 +1,265 @@
+/*1.- De acuerdo a los siguientes diagramas realice el código que implemente las clases
+mostradas y utilice vectores de objetos para manipular los objetos desde la clase principal.
+En el diagrama se muestra la clase Cuenta, se utilizara la del paquete practica6, solo se
+deberá cambiar el modificador de acceso como lo indica el diagrama (# protegido). Las dos
+clases derivadas pertenecerán al paquete practica10, al igual que una clase principal para
+probar el funcionamiento de las clases.
+En la clase principal mostrar el siguiente menú
+1.- Cuenta de Ahorros
+2.- Cuenta de Cheques
+3.- Salir
+Página 3 de 4
+Cada opción mostrara el siguiente submenú
+1.- Crear cuenta
+2.- Deposito( agregar)
+3.- Retirar
+4.- Consulta saldo
+5.- regresar*/
+
+/*PACKAGE practica10*/
+/*CLASE MCuenta*/
+package practica10;
+import java.util.Scanner;
+public class MCuenta {
+    
+
+    public static void main(String[] args){
+        Scanner leer=new Scanner(System.in);
+        int op,nc=0;
+        double si,ti = 0;
+           boolean ban=false;
+        CuentaAhorros Ca = null;
+        CuentaDeCheques C= null;
+        do{
+            System.out.println("****************** M E N U ******************");
+            System.out.println(" 1) CUENTA DE AHORROS\n 2) CUENTA DE CHEQUES\n 3) SALIR DEL PROGRAMA\n");
+            System.out.println("\tOpcion >> ");
+            op=leer.nextInt();
+            switch(op){
+                case 1:
+                    int op1;
+                    
+                    do{
+                           
+                        System.out.println("\n\n 1) CREAR CUENTA\n 2) DEPOSITO\n 3) RETIRAR\n 4) CONSULTA DE SALDO\n 5) BACK\n");
+                        System.out.println("\tOpcion>> ");
+                        op1=leer.nextInt();
+                        switch(op1){
+                            case 1:
+                                System.out.println("Saldo Inicial ");
+                                si=leer.nextDouble();
+                                System.out.println("Numero De Cuenta");
+                                nc=leer.nextInt();
+                                System.out.println("Tasa De Interes");
+                                ti=leer.nextDouble();
+                                Ca=new CuentaAhorros(si,ti,nc);
+                                ban=true;
+                                break;
+                            case 2:
+                                if(ban){
+                                System.out.println("Cantidad Agregar");
+                                double c=leer.nextDouble();
+                                Ca.setCantidad(c);
+                                Ca.agregar();
+                                }
+                                else{
+                                    System.out.println("XX ERROR XX \n\tDebes Crearte Una Cuenta");
+                                    
+                                }
+                                break;
+                            case 3:
+                                if(ban){
+                                System.out.println("Cantidad A Retirar");
+                                double r=leer.nextDouble();
+                                Ca.setCantidad(r);
+                                Ca.retirar();
+                                }else{
+                                    System.out.println("XX ERROR XX \n\tDebes Crearte Una Cuenta");
+                                }
+                            case 4:
+                                if(ban){
+                                    double ts=(ti*Ca.getSaldo()/100);
+                                    System.out.println("\n# CUENTA>> "+nc+"\n SALDO>> $"+Ca.getSaldo()+"\n INTERESES>> "+ts);
+                                }
+                                else{
+                                    System.out.println("XX ERROR XX \n\tDebes Crearte Una Cuenta");
+                                }
+                            break;
+                        }
+                    }while(op1!=5);
+                    break;
+                case 2:
+                   int op2;
+                    do{
+                        System.out.println(" 1) CREAR CUENTA\n 2) DEPOSITO\n 3) RETIRAR\n 4) CONSULTA DE SALDO\n 5) REGRESAR\n");
+                        System.out.println("\tOpcion >> ");
+                        op2=leer.nextInt();
+                        switch(op2){
+                            case 1:
+                                System.out.println("Saldo Inicial ");
+                                si=leer.nextDouble();
+                                System.out.println("Cantidad De Sobregiro");
+                                ti=leer.nextDouble();
+                                C=new CuentaDeCheques(si,ti);
+                                ban=true;
+                                break;
+                            case 2:
+                                if(ban){
+                                System.out.println("Cantidad Agregar");
+                                double c=leer.nextDouble();
+                                C.setCantidad(c);
+                                C.agregar();
+                                }
+                                else{
+                                    System.out.println("\nXX ERROR XX \n\tDebes Crearte Una Cuenta");
+                                    
+                                }
+                                break;
+                            case 3:
+                                if(ban){
+                                System.out.println("Cantidad A Rretirar");
+                                double r=leer.nextDouble();
+                                
+                                if(C.getSaldo()-r>ti){
+                                C.retirar(r);
+                                }else{
+                                    System.out.println("Cuenta Sobregirada");
+                                }
+                                
+                                }else{
+                                    System.out.println("\nXX ERROR XX \n\tDebes Crearte Una Cuenta");
+                                }
+                            break;
+                            case 4:
+                                if(ban){
+                                    
+                                    System.out.println("SALDO $"+C.getSaldo());
+                                }
+                                else{
+                                    System.out.println("\nXX ERROR XX \n\tDebes Crearte Una Cuenta");
+                                }
+                            break;
+                        }
+                         
+            }while(op2!=5);
+            break;
+                    
+            }
+        }while(op!=3);
+    }
+}
+
+/*CLASE Cuenta*/
+
+package practica10;
+public class Cuenta {
+    protected double saldo;
+    public double cantidad;
+    protected int noCuenta;
+    
+    public Cuenta(){
+    }
+public Cuenta(double saldo,int noCuenta){
+        this.saldo=saldo;
+        this.noCuenta= noCuenta;
+    }
+    public void setCantidad(double cantidad){
+        this.cantidad=cantidad;
+    }
+    public double getSaldo(){
+        return saldo;
+    }
+    public int getNoCuenta(){
+    	return noCuenta;
+    }
+    public double agregar(){
+        saldo=saldo+cantidad;
+        return saldo;
+    }
+    public double retirar(){
+        if(saldo<cantidad){
+            System.out.println("\n\n\tSALDO INSUFICIENTE\n");
+        }else{
+            saldo=saldo-cantidad;
+        }
+        return saldo;
+    }   
+}
+
+/*CLASE CuentaDeCheques*/
+package practica10;
+
+
+public class CuentaDeCheques extends Cuenta{
+    private double cantidadSobregiro;
+    
+   public CuentaDeCheques(double saldo,double cantidadSobregiro){
+       this.saldo=saldo;
+       this.cantidadSobregiro=cantidadSobregiro;
+       
+   }
+   public void retirar(double cantidad){
+       saldo-=cantidad;
+   }
+}
+
+/*CLASE CuentaAhorros*/
+package practica10;
+import practica6.Cuenta;
+
+public class CuentaAhorros extends Cuenta {
+  private double tasaIntereses;  
+  public CuentaAhorros(double saldo, double tasaIntereses, int noCuenta) {
+        super(saldo, noCuenta);
+        this.tasaIntereses = tasaIntereses;
+    }
+    public void agregar(double cantidad){
+        saldo=saldo-cantidad;
+    }
+}
+
+/*PACKAGE practica6*/
+/*CLASE Cuenta*/
+
+
+package practica6;
+
+public class Cuenta {
+    protected double saldo;
+    public double cantidad;
+    protected int noCuenta;
+    
+    public Cuenta(){
+    }
+    
+public Cuenta(double saldo,int noCuenta){
+        this.saldo=saldo;
+        this.noCuenta= noCuenta;
+    }
+
+    Cuenta(double si) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+   
+    public void setCantidad(double cantidad){
+        this.cantidad=cantidad;
+    }
+    public double getSaldo(){
+        return saldo;
+    }
+    public int getNoCuenta(){
+    	return noCuenta;
+    }
+    public double agregar(){
+        saldo=saldo+cantidad;
+        return saldo;
+    }
+    public double retirar(){
+        if(saldo<cantidad){
+            System.out.println("\n\n\tSALDO INSUFICIENTE\n");
+        }else{
+            saldo=saldo-cantidad;
+        }
+        return saldo;
+    }
+}
