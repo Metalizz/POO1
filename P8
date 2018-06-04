@@ -16,3 +16,425 @@ pueda registrar hasta 5 cuentas diferentes,
 2.1.4. Esta clase debe pertenecer al paquete practica6
 2.2.Completa la clase Banco que se muestra a continuación para que el usuario pueda
 realizar las diferentes opciones que muestra el menú. */
+
+/*packages Practica6_1*/
+/*CLASE TestCuenta*/
+
+import java.util.Scanner;
+
+public class TestCuenta {
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        Cuenta c = new Cuenta();
+        boolean ban = true;
+        String Nombre;
+        double saldo;
+        do {
+            int op;
+            System.out.println("\t*** C A J E R O ***");
+            System.out.println("\t1_Depositar Cantidad  ");
+            System.out.println("\t2_Retirar efectivo  ");
+            System.out.println("\t3_Salir");
+            op = in.nextInt();
+            in.nextLine();
+
+            switch (op) {
+                case 1:
+                    System.out.println("----------------------------");
+                    System.out.println("\tSaldo Actual:" + c.getSaldo());
+                    saldo = c.Depositar();
+                    System.out.println("----------------------------");
+                    System.out.println("\tSaldo" + saldo);
+                    System.out.println("----------------------------");
+                    break;
+                case 2:
+                    c.retirar();
+                    System.out.println("----------------------------");
+                    System.out.println("Saldo Final" + c.getSaldo());
+                    System.out.println("----------------------------");
+                    break;
+                case 3:
+                    System.out.println("Gracias Por Usar Nuestro Programa");
+                    ban = false;
+                    break;
+                default:
+                    System.out.println("OPCION INVALIDA");
+
+            }
+        } while (ban != false);
+
+    }
+}
+
+/*CLASE Cuenta*/
+
+
+import java.util.Scanner;
+
+public class Cuenta {
+    Scanner in = new Scanner(System.in);
+   private double saldo=100.50;
+//
+    public double Depositar(){ // Agregar Saldo
+         double saldo_extra;
+         System.out.println("----------------------------");
+         System.out.println("\tCuanto quiere ingresar: ");
+
+           saldo_extra=in.nextDouble();
+           saldo=saldo_extra+saldo;
+        return saldo;
+    }
+    
+    
+    public void retirar(){
+        double fondo;
+        System.out.println("----------------------------");
+        System.out.println("\tCuanto desea retirar?(Saldo: "+saldo+")");
+         fondo = in.nextDouble();
+        saldo=saldo- fondo ;  
+    }
+
+    
+    
+    
+    public double getSaldo() {
+        return saldo;
+    }    
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    String cuenta() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    } 
+    
+}
+
+
+/*Packages p3*/
+/*CLASE Triangulos*/
+
+package p3;
+
+public class Triangulos {
+
+    public void dibujar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+//    public void dibujar() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+    
+}
+
+/*CLASE dibujar*/
+
+package p3;
+public class dibujar {
+}
+
+/*CLASE triangulo*/
+package p3;
+
+public class triangulo {
+
+    public static void main(String[] args) {
+        // TODO code application logic here
+    }
+
+//    public void dibujar() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }   
+}
+
+/*Packages practica3*/
+/*CLASE Triangulos*/
+package practica3;
+
+public class Triangulos {
+
+    public void dibujar() {
+        System.out.println("                   *                  ");
+        System.out.println("                  ***                 ");
+        System.out.println("                 *****                ");
+        System.out.println("                *******               ");
+        System.out.println("               *********              ");
+        System.out.println("              ***********             ");
+        System.out.println("            **************            ");
+        System.out.println("          ******************          ");
+        System.out.println("        **********************        ");
+        System.out.println("      **************************      ");
+        System.out.println("    ******************************    ");
+        System.out.println("  **********************************  ");
+    }
+}
+/*CLASE figuras*/
+package practica3;
+
+import java.util.Scanner;
+import p3.Triangulos;
+import p3.triangulo;
+
+public class figuras {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        Triangulos T = new Triangulos();
+        T.dibujar();
+    }
+}
+
+
+/*Packages practica5*/
+/*CLASE Dibujos*/
+
+package practica5;
+
+import java.util.Scanner;
+
+public class Dibujos {
+
+    public static void main(String[] args) {
+
+        Rectangulos R = new Rectangulos();
+        Pentagono P = new Pentagono();
+        Scanner leer = new Scanner(System.in);
+        int op;
+        
+        System.out.println("\t\t**** M E N U ****");
+        System.out.println("1)Ver El Pentágono\n2)Ver El Rectangulo\n3)Salir");
+        System.out.println("INGRESA OPCION >> ");
+        op = leer.nextInt();
+        switch (op) {
+            
+            case 1:
+                R.dibujar();
+                break;
+            case 2:
+                P.dibujar();
+                break;
+        }
+    }
+}
+/*CLASE Pentagono*/
+package practica5;
+
+public class Pentagono{
+	
+	public void dibujar(){
+	      System.out.println("                    *                   ");
+        System.out.println("                *       *               ");
+        System.out.println("             *            *             ");
+        System.out.println("          *                 *           ");
+        System.out.println("        *                     *         ");
+        System.out.println("       *                        *       ");
+        System.out.println("        *                      *        ");
+        System.out.println("         *                    *         ");
+        System.out.println("          *                  *          ");
+        System.out.println("           *                *           ");
+        System.out.println("            *              *            ");
+        System.out.println("             *************              ");
+
+	}
+}
+
+/*CLASE Rectangulos*/
+package practica5;
+
+import java.util.Scanner;
+public class Rectangulos{
+	
+	public void dibujar(){
+	System.out.println("****************************************** ");
+        System.out.println("*                                        * ");
+        System.out.println("*                                        * ");
+        System.out.println("*                                        * ");
+        System.out.println("*                                        * ");
+        System.out.println("*                                        * ");
+        System.out.println("****************************************** ");
+		System.out.println("\n\n\n\n\n\n\n\n\n");
+	}
+}
+
+/*Packages Practica8*/
+/*CLASE Banco*/
+package practica8;
+
+import practica8.Cuenta;
+import java.util.Scanner;
+
+public class Banco {
+
+    public static void main(String[] args) {
+        Scanner read = new Scanner(System.in);
+        Cuenta[] cta = new Cuenta[5];
+        int op;
+        int x = 0;
+        int noCuenta;
+        double i;
+        boolean existe;
+        do {
+            System.out.println("\n **** C A J E R O ****");
+            System.out.println(" 1]....Crear");
+            System.out.println(" 2]....Deposito De Efectivo");
+            System.out.println(" 3]....Retiro De Efectivo");
+            System.out.println(" 4]....Consulta De Saldo ");
+            System.out.println(" 5]....Salir Del Programa ");
+            System.out.println("\t>> ");
+            op = read.nextInt();
+            switch (op) {
+                case 1:
+                    System.out.println("Numero de Cuenta");
+                    noCuenta = read.nextInt();
+                    System.out.println("Saldo inicial");
+                    double saldo = read.nextDouble();
+                    cta[x] = new Cuenta(saldo, noCuenta);
+                    x++;
+                    break;
+                case 2:
+                    existe = false;
+                    System.out.println("Numero de Cuenta");
+                    noCuenta = read.nextInt();
+                    for (int y = 0; y < x; y++) {
+                        if (noCuenta == cta[y].getNoCuenta()) {
+                            System.out.println("Cantidad a depositar");
+                            i = read.nextDouble();
+                            cta[y].setCantidad(i);
+                            cta[y].agregar();
+                            existe = true;
+
+                        }
+                    }
+                    if (existe) {
+                        System.out.println("deposito realizado");
+                    } else {
+                        System.out.println("no se encontro el Numero de Cuenta");
+                    }
+                    break;
+                case 3:
+                    existe = false;
+                    System.out.println("Numero de Cuenta");
+                    noCuenta = read.nextInt();
+                    for (int y = 0; y < x; y++) {
+                        if (noCuenta == cta[y].getNoCuenta()) {
+                            System.out.println("Cantidad a retirar");
+                            i = read.nextDouble();
+                            cta[y].setCantidad(i);
+                            cta[y].retirar();
+                            existe = true;
+                        }
+                    }
+                    if (existe) {
+                        System.out.println("retiro realizado");
+                    } else {
+                        System.out.println("no se encontro el Numero de Cuenta");
+                    }
+                    break;
+                case 4:
+                    for (int y = 0; y < x; y++) {
+                        System.out.println(cta[y].getNoCuenta() + " " + cta[y].getSaldo());
+                    }
+                    break;
+            }
+        } while (op != 5);
+    }
+}
+
+/*CLASE Cuenta*/
+package practica8;
+
+public class Cuenta {
+
+    private double saldo;
+    private double cantidad;
+    private int noCuenta;
+
+    public Cuenta() {
+    }
+
+    public Cuenta(double saldo, int noCuenta) {
+        this.saldo = saldo;
+        this.noCuenta = noCuenta;
+    }
+
+    Cuenta(double si) {
+        throw new UnsupportedOperationException("Not Supported yet.");
+    }
+
+    
+    public double getSaldo() {
+        return saldo;
+    }
+
+    
+    public void setCantidad(double cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public int getNoCuenta() {
+        return noCuenta;
+    }
+
+    public double agregar(){
+        saldo=saldo+cantidad;
+        return saldo;
+    }
+    
+    public double retirar(){
+        if(saldo<cantidad){
+            System.out.println("\nNo Hay Suficiente Saldo");
+        }else{
+            saldo=saldo-cantidad;
+        }
+        return saldo;
+    }
+}
+
+/*CLASE practica8*/
+package practica8;
+import practica3.Triangulos;
+import practica5.Pentagono;
+import practica5.Rectangulos;
+import java.util.Scanner;
+	public class practica8{
+		public static void main(String[] args){
+			int op;
+			Rectangulos R=new Rectangulos();
+			Pentagono P=new Pentagono();
+			Triangulos T=new Triangulos();
+			Scanner leer=new Scanner(System.in);
+			do{
+		
+				System.out.println("Menu de dibujos");
+				System.out.println("1.-Triangulos\n2.-Rectangulos\n3.-Pentagono\4.-Salir\nque opcion elige");
+				op=leer.nextInt();
+				switch(op){
+					
+					case 1:
+						T.dibujar();
+						break;
+					case 2:
+						R.dibujar();
+						break;
+					case 3:
+						P.dibujar();
+						break;
+					case 4:
+						break;
+					default:
+						System.out.println("opcion invalida");
+				}				
+				
+			}while(op!=4);
+		}
+	}
+  
+  
+
+
+
+
