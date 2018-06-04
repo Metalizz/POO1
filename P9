@@ -6,3 +6,229 @@ las excepciones que correspondan para un correcto funcionamiento en el programa.
 2.- Crea una excepción para el manejo de error cuando una cadena tenga longitud mayor a
 30 caracteres y otra para cuando contenga números. Desarrollar una aplicación para mostrar
 el funcionamiento de las excepciones creadas. */
+/*Objeto practica9lab*/
+/*Packages articulos*/
+/*CLASE Articulos*/
+package articulos;
+
+public class Articulos {
+ private int noControl;
+ private String nombre;
+ public Articulos(int noControl, String nombre) {
+ this.noControl = noControl;
+ this.nombre = nombre;
+ }
+ public int getNoControl() {
+ return noControl;
+ }
+ public String getNombre() {
+ return nombre;
+ }
+}
+
+/*CLASE MArticulos*/
+package articulos;
+import java.util.*;
+import java.util.Scanner;
+
+public class MArticulos extends Exception  {
+    
+ public static void main(String[ ] args) throws InputMismatchException {
+     
+ MtdsArticulos obj = new MtdsArticulos(4);
+ Scanner leer = new Scanner(System.in);
+ String resp;
+ int op;
+  do {
+      System.out.println("********MENU**********");
+      System.out.println(" 1) Registrar\n 2) Buscar\n 3) Imprimir\n 4) Salir");
+      System.out.println("\tOpcion >> ");
+      
+      try{
+           op=leer.nextInt();
+       }catch(InputMismatchException e){
+           System.out.println("\nRegistrar Numero # ");
+           break;
+       }
+       
+      switch(op){
+          case 1:
+              
+               System.out.println("\nNo.# Control");
+               try{
+                   int no = leer.nextInt();
+               
+               System.out.println("\nNombre ");
+               String name = leer.nextLine();
+               name = leer.nextLine();
+               String ok=obj.insertar(no,name);
+               System.out.println(ok);
+               System.out.println("\nOtro si/no");
+               resp = leer.nextLine();
+               }catch(InputMismatchException es){
+                   System.out.println("\nRegistrar Numero # ");
+                   break;
+               }
+               break;
+          case 2:
+                try{                        
+                System.out.println("\n No.# Control A Buscar ");
+                int noB = leer.nextInt();
+                 int pos=obj.buscar(noB);
+                
+                if(pos > -1){
+                 System.out.println("Se encontro en la posicion: " + pos);
+                 }else{
+                 System.out.println("No Se Encontro ");
+                 }
+                }catch(InputMismatchException es){
+                   System.out.println("\nRegistrar Numero ");
+                }
+                 break;
+          case 3:
+              System.out.println(obj.mostrar()); 
+              break;
+              
+      }
+  }while(op!=4);
+ }
+}
+
+
+/*MtdsArticulos*/
+package articulos;
+
+public class MtdsArticulos {
+ Articulos [] arts;
+ int x;
+ int N;
+ public MtdsArticulos(int N) {
+ this.N = N;
+ arts = new Articulos[N];
+ }
+ public String insertar(int noControl, String nombre) {
+ String r="agregado ";
+ if(x<N) {
+ arts[x] = new Articulos(noControl,nombre);
+ x++;
+ } else {
+ r="No Puedes Registrar Mas Porque No Hay Espacio";
+ }
+ return r;
+ }
+ public int buscar(int noBuscar) {
+ int pos=-1;
+ for(int y=0;y<x;y++) {
+ if(arts[y].getNoControl() == noBuscar) {
+ pos =y;
+ break;
+ }
+ }
+ return pos;
+ }
+ /////////////////////////////// METODO MOSTRAR
+ public String mostrar() {
+ String datos="";
+ for(int y=0;y<x;y++) {
+ datos=datos+ arts[y].getNoControl() + "\t"+arts[y].getNombre() ;
+ }
+ return datos;
+ }
+}
+
+/*Objeto practica9b*//*Packages longexception*/
+/*CLASE MLongE*/
+/*2.- Crea una excepción para el manejo de error cuando una cadena tenga longitud mayor a
+30 caracteres y otra para cuando contenga números. Desarrollar una aplicación para mostrar
+el funcionamiento de las excepciones creadas.*/
+
+package longexception;
+
+import java.util.Scanner;
+
+public class MLongE {
+
+    public static void main(String[] args) {
+        PruebaLongE P = new PruebaLongE();
+        PruebaNumE N = new PruebaNumE();
+        int op;
+        String cadena;
+        Scanner leer = new Scanner(System.in);
+
+        System.out.println("Escibe una cadena");
+        cadena = leer.nextLine();
+        do {
+            System.out.println("************ M E N U ************");
+            System.out.println(" 1) Excepcion Longitud\n 2) Excepcion Numero\n 3) Salir Del Programa");
+            System.out.println("\n\tElije una opcion >> ");
+            op = leer.nextInt();
+            switch (op) {
+                case 1:
+                    try {
+                        P.captura(cadena);
+
+                    } catch (LongException l) {
+                        System.out.println("ERROR La Cadena:" + l);
+
+                    }
+                    System.out.println(cadena);
+                    break;
+                case 2:
+                    try {
+                        N.captura(cadena);
+                    } catch (NumException e) {
+                        System.out.println(e);
+                    }
+                    break;
+            }
+        } while (op != 3);
+    }
+}
+
+/*CLASE NumException*/
+package longexception;
+
+
+class NumException extends Exception {
+
+    NumException(String cadena) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+}
+/*CLASE PruebaLongE*/
+package longexception;
+
+
+public class PruebaLongE {
+    public void captura(String cadena) throws LongException{
+        if(cadena.length()>29){
+            throw new LongException(cadena);
+            
+        }
+    }
+}
+
+/*CLASE PruebaNumE*/
+package longexception;
+
+
+public class PruebaNumE {
+    public void captura(String cadena) throws   NumException{
+           if(cadena.matches("[0-9]+")){
+            throw new NumException(cadena);
+            }
+    }
+}
+/*CLASE LongException*/
+package longexception;
+public class LongException extends Exception {
+    String cadena;
+    public LongException(String cadena) {
+        this.cadena=cadena;   
+    }
+    public String toString(){
+        return cadena + "\n la cadena tiene una longitud de 30 caracteres y asi no se puede";
+    }   
+}
+
