@@ -102,10 +102,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import util.*;
 
-/**
- *
- * @author luis.martinez
- */
 public class Principal {
 
     //static ArchivoTexto archivo = new ArchivoTexto();
